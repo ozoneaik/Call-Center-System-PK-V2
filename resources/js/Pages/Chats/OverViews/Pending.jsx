@@ -1,15 +1,17 @@
 import { BoxTableHeader } from "@/Components/Tables/BoxTableHeader";
-import { Sheet, Table } from "@mui/joy";
+import { Button, Sheet, Table } from "@mui/joy";
 import { useState } from "react"
 import { ChatPageStyle } from "../../../../css/ChatPageStyle";
+import ChatIcon from '@mui/icons-material/Chat';
+import { CustDetail } from "@/Components/Tables/OverView";
+import { FullDate, RealTime } from "@/Components/Times/Time";
 
 export default function Pending({ list, user }) {
     const [pending, setPending] = useState(list);
     return (
         <div>
-            <h1>Pending</h1>
             <BoxTableHeader totalList={list.length} user={user} />
-            <Sheet sx={ChatPageStyle.BoxSheet} variant="outlined">
+            <Sheet variant="outlined" sx={ChatPageStyle.BoxSheet}>
                 <Table
                     stickyHeader
                     hoverRow
@@ -17,23 +19,41 @@ export default function Pending({ list, user }) {
                 >
                     <thead>
                         <tr>
-                            <th style={{ width: 200 }}>ชื่อลูกค้า</th>
-                            <th style={{ width: 150 }}>เมื่อ</th>
-                            <th style={{ width: 150 }}>ผ่านมาแล้ว</th>
-                            <th style={{ width: 150 }}>จากห้องแชท</th>
-                            <th style={{ width: 150 }}>จากพนักงาน</th>
-                            <th style={{ width: 150 }}>จัดการ</th>
+                            <th>ชื่อลูกค้า</th>
+                            <th>พนักงานรับเรื่อง</th>
+                            <th>วันที่รับเรื่อง</th>
+                            <th>เวลาเรื่ม</th>
+                            <th>เวลาที่สนทนา</th>
+                            <th>จัดการ</th>
                         </tr>
                     </thead>
                     <tbody>
                         {pending && pending.length > 0 && pending.map((item, index) => (
                             <tr key={index}>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
+                                <td>
+                                    <CustDetail
+                                        avatar={'https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png'}
+                                        RateId={index + 1}
+                                        custName={item.name}
+                                        description={'ทักมาจากไลน์ pumpkin'}
+                                        message={'hello world'}
+                                    />
+                                </td>
+                                <td>{user.name}</td>
+                                <td>
+                                    <FullDate date={new Date()} />
+                                </td>
+                                <td>
+                                    <FullDate date={new Date()} color="success" />
+                                </td>
+                                <td>
+                                    <RealTime date={new Date()} color="warning"/>
+                                </td>
+                                <td>
+                                    <Button size='sm' color="primary" variant="outlined">
+                                        <ChatIcon />
+                                    </Button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

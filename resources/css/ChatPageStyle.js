@@ -29,13 +29,17 @@ export const ChatPageStyle = {
         justifyContent: 'space-between',
     },
     BoxSheet: {
-        display: {sm: 'initial'}, width: '100%',
-        borderRadius: 'sm', flexShrink: 1, overflow: 'auto', minHeight: '300px', maxHeight: 'calc(100vh - 200px)',
+        borderRadius: 'sm', 
+        flexShrink: 1,
+         overflow: 'auto',
+          minHeight: '300px',
+          maxHeight: 'calc(100vh - 560px)',
     },
     Table : {
         '--TableCell-headBackground': 'var(--joy-palette-background-level1)',
         '--Table-headerUnderlineThickness': '1px',
         '--TableRow-hoverBackground': 'var(--joy-palette-background-level1)',
+        // แก้ text ให้ไม่ตัดข้อความ
     },
     TableText : {
         whiteSpace: 'nowrap',
