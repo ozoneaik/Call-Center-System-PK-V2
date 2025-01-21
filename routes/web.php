@@ -18,12 +18,13 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect(auth()->user() ? '/dashboard' : '/login');
+    // return Inertia::render('Welcome', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
 });
 
 Route::get('/dashboard', function () {
@@ -37,7 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/chat-overview/{roomId}', [MessageController::class, 'overView']);
+    Route::prefix('chat-overview')->group(function(){
+        Route::get('{roomId}', [MessageController::class, 'overView']);
+    });
     Route::get('/messages', function(){
         return Inertia::render('Chats/Message/MessagePane');
     });

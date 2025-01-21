@@ -5,6 +5,8 @@ import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { CssVarsProvider } from '@mui/joy';
+import PusherProvider from './Layouts/PusherProvider';
+import { NotificationProvider } from './Contexts/notification';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -15,9 +17,13 @@ createInertiaApp({
         const root = createRoot(el);
 
         root.render(
-            <CssVarsProvider disableTransitionOnChange>
-                <App {...props} />
-            </CssVarsProvider>
+            <NotificationProvider>
+                <PusherProvider>
+                    <CssVarsProvider disableTransitionOnChange>
+                        <App {...props} />
+                    </CssVarsProvider>
+                </PusherProvider>
+            </NotificationProvider>
         );
     },
     progress: {
